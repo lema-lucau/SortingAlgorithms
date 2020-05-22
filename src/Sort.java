@@ -3,16 +3,17 @@
     Date: 22/05/2020
 */
 
-import java.io.*;
+import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 import java.util.Random;
 
 public class Sort {
     public static void main(String[] args) {
-        //declare variables and array
+        //declare variables and arrays
         int option = 0;
         int sortOption = 0;
         int sizeArr;
+        long startTime, endTime, timeTaken;
         int[] nums;
         int[] sortedNums;
 
@@ -80,40 +81,86 @@ public class Sort {
             // take user input
             sortOption = input.nextInt();
 
-            // call correct sorting sorting method based on the users input
-            if (sortOption == 1) {
-                // sort array using the selection sort
-                System.out.println("You selected option " + sortOption + " (Selection sort)");
-                s.selectionSort(nums, sortedNums);
+            switch (sortOption) {
+                // call correct sorting sorting method based on the users input
+                case 1:
+                    // get the current system time in milliseconds
+                    startTime = System.currentTimeMillis();
+                    System.out.println("You selected option " + sortOption + " (Selection sort)");
 
-            } else if (sortOption == 2) {
-                // sort array using the bubble sort
-                System.out.println("You selected option " + sortOption + " (Bubble sort)");
-                s.bubbleSort(nums, sortedNums);
+                    // sort array using the selection sort
+                    s.selectionSort(nums, sortedNums);
 
-            } else if (sortOption == 3) {
-                // sort array using the insertion sort
-                System.out.println("You selected option " + sortOption + " (Insertion sort)");
-                s.insertionSort(nums, sortedNums);
+                    // get time after method is finished and display the time taken
+                    endTime = System.currentTimeMillis();
+                    timeTaken = endTime - startTime;
+                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    break;
 
-            } else if (sortOption == 4) {
-                // sort array using the merge sort
-                System.out.println("You selected option " + sortOption + " (Merge sort)");
-                s.mergeSort(nums, sortedNums);
+                case 2:
+                    // get the current system time in milliseconds
+                    startTime = System.currentTimeMillis();
+                    System.out.println("You selected option " + sortOption + " (Bubble sort)");
 
-            } else if (sortOption == 5) {
-                // sort array using the quick sort
-                System.out.println("You selected option " + sortOption + " (Quick sort)");
-                s.quickSort(nums, sortedNums);
+                    // sort array using the bubble sort
+                    s.bubbleSort(nums, sortedNums);
 
-            } else if (sortOption == 99) {
-                // end program
-                System.out.println("Program ended");
-                break;
+                    // get time after method is finished and display the time taken
+                    endTime = System.currentTimeMillis();
+                    timeTaken = endTime - startTime;
+                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    break;
 
-            } else {
-                System.out.println("ERROR: Invalid input. Select an option from the menu");
-            }// end if else
+                case 3:
+                    // get the current system time in milliseconds
+                    startTime = System.currentTimeMillis();
+                    System.out.println("You selected option " + sortOption + " (Insertion sort)");
+
+                    // sort array using the insertion sort
+                    s.insertionSort(nums, sortedNums);
+
+                    // get time after method is finished and display the time taken
+                    endTime = System.currentTimeMillis();
+                    timeTaken = endTime - startTime;
+                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    break;
+
+                case 4:
+                    // get the current system time in milliseconds
+                    startTime = System.currentTimeMillis();
+                    System.out.println("You selected option " + sortOption + " (Merge sort)");
+
+                    // sort array using the merge sort
+                    s.mergeSort(nums, sortedNums);
+
+                    // get time after method is finished and display the time taken
+                    endTime = System.currentTimeMillis();
+                    timeTaken = endTime - startTime;
+                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    break;
+
+                case 5:
+                    // get the current system time in milliseconds
+                    startTime = System.currentTimeMillis();
+                    System.out.println("You selected option " + sortOption + " (Quick sort)");
+
+                    // sort array using the quick sort
+                    s.quickSort(nums, sortedNums);
+
+                    // get time after method is finished and display the time taken
+                    endTime = System.currentTimeMillis();
+                    timeTaken = endTime - startTime;
+                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    break;
+
+                case 99:
+                    // end program
+                    System.out.println("Program ended");
+                    break;
+
+                default:
+                    System.out.println("ERROR: Invalid input. Select an option from the menu");
+            }//end switch
         }// end while
 
         input.close();
