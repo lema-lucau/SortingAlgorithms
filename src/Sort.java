@@ -31,8 +31,7 @@ public class Sort {
             System.out.println("");
             System.out.println("Select an option from the menu: ");
             System.out.println("1.Use a randomly generated set of numbers");
-            System.out.println("2.Manually insert a set of numbers");
-            System.out.println("3.Load a set of numbers from a txt file");
+            System.out.println("2.Load a set of numbers from a txt file");
 
             option = input.nextInt();
 
@@ -42,17 +41,7 @@ public class Sort {
                 s.generateNums(nums);
 
             } else if (option == 2) {
-                // populate nums array
-                System.out.println("");
-                s.enterNums(nums);
-
-                System.out.println("");
-                for (int num : nums) {
-                    System.out.print(" " + num + " ");
-                }// end for
-
-            } else if (option == 3) {
-                System.out.println("You have selected option 3");
+                System.out.println("You have selected option 2");
 
             } else {
                 System.out.println("ERROR: Invalid input. Select an option from the menu");
@@ -69,6 +58,8 @@ public class Sort {
             System.out.println("3. Insertion sort");
             System.out.println("4. Merge sort");
             System.out.println("5. Quick sort");
+            System.out.println("6. Generate another set of random numbers");
+            System.out.println("7. Shuffle current data set");
             System.out.println("99. End program");
 
             // take user input
@@ -196,6 +187,16 @@ public class Sort {
                     System.out.println("Total time taken: " + timeTaken + " ms");
                     break;
 
+                case 6:
+                    // generate a random set of numbers
+                    s.generateNums(nums);
+                    break;
+
+                case 7:
+                    // shuffle array
+                    s.shuffleArr(nums);
+                    break;
+
                 case 99:
                     // end program
                     System.out.println("");
@@ -289,6 +290,25 @@ public class Sort {
         for (int num : nums) {
             System.out.print(" " + num + " ");
         }// end for
-    }
+    }// end displayArr()
+
+    // randomly shuffle the contents of the array
+    private void shuffleArr(int[] nums) {
+        // declare variables
+        Random rand = new Random();
+        int maxIndex = nums.length - 1;
+        int randIndex, temp;
+
+        // swap random indexes
+        for(int i = 0; i < nums.length; i++) {
+            // store a random index
+            randIndex = rand.nextInt(maxIndex);
+
+            // make swap
+            temp = nums[randIndex];
+            nums[randIndex] = nums[i];
+            nums[i] = temp;
+        }// end outer for
+    }// end shuffleArr()
 }
 
