@@ -15,7 +15,6 @@ public class Sort {
         int sizeArr;
         long startTime, endTime, timeTaken;
         int[] nums;
-        int[] sortedNums;
 
         // create objects
         Scanner input = new Scanner(System.in);
@@ -25,7 +24,6 @@ public class Sort {
         System.out.println("How many numbers would you like to include in the data set (Max = 100): ");
         sizeArr = input.nextInt();
         nums = new int[sizeArr];
-        sortedNums = new int[sizeArr];
 
         //display menu until the user selects a valid opinion
         while(option != 1 && option != 2 && option != 3) {
@@ -41,12 +39,7 @@ public class Sort {
             //react to users menu selection
             if (option == 1) {
                 // populate nums array
-                System.out.println("");
                 s.generateNums(nums);
-
-                for (int num : nums) {
-                    System.out.print(" " + num + " ");
-                }// end for
 
             } else if (option == 2) {
                 // populate nums array
@@ -86,75 +79,126 @@ public class Sort {
                 case 1:
                     // get the current system time in milliseconds
                     startTime = System.currentTimeMillis();
-                    System.out.println("You selected option " + sortOption + " (Selection sort)");
+
+                    // display array before selection sort
+                    System.out.println("");
+                    System.out.println("Array before selection sort :");
+                    s.displayArr(nums);
 
                     // sort array using the selection sort
-                    s.selectionSort(nums, sortedNums);
+                    s.selectionSort(nums);
+
+                    // display array after selection sort
+                    System.out.println("");
+                    System.out.println("Array after selection sort :");
+                    s.displayArr(nums);
 
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
+                    System.out.println("");
                     System.out.println("Total time taken: " + timeTaken + " ms");
                     break;
 
                 case 2:
                     // get the current system time in milliseconds
                     startTime = System.currentTimeMillis();
-                    System.out.println("You selected option " + sortOption + " (Bubble sort)");
+
+                    // display array before bubble sort
+                    System.out.println("");
+                    System.out.println("Array before bubble sort :");
+                    s.displayArr(nums);
 
                     // sort array using the bubble sort
-                    s.bubbleSort(nums, sortedNums);
+                    s.bubbleSort(nums);
+
+                    // display array after bubble sort
+                    System.out.println("");
+                    System.out.println("Array after bubble sort :");
+                    s.displayArr(nums);
 
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
+                    System.out.println("");
                     System.out.println("Total time taken: " + timeTaken + " ms");
                     break;
 
                 case 3:
                     // get the current system time in milliseconds
                     startTime = System.currentTimeMillis();
-                    System.out.println("You selected option " + sortOption + " (Insertion sort)");
+
+                    // display array before insertion sort
+                    System.out.println("");
+                    System.out.println("Array before insertion sort :");
+                    s.displayArr(nums);
 
                     // sort array using the insertion sort
-                    s.insertionSort(nums, sortedNums);
+                    s.insertionSort(nums);
+
+                    // display array after insertion sort
+                    System.out.println("");
+                    System.out.println("Array after insertion sort :");
+                    s.displayArr(nums);
 
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
+                    System.out.println("");
                     System.out.println("Total time taken: " + timeTaken + " ms");
                     break;
 
                 case 4:
                     // get the current system time in milliseconds
                     startTime = System.currentTimeMillis();
-                    System.out.println("You selected option " + sortOption + " (Merge sort)");
+
+                    // display array before merge sort
+                    System.out.println("");
+                    System.out.println("Array before merge sort :");
+                    s.displayArr(nums);
 
                     // sort array using the merge sort
-                    s.mergeSort(nums, sortedNums);
+                    s.mergeSort(nums);
+
+                    // display array after merge sort
+                    System.out.println("");
+                    System.out.println("Array after merge sort :");
+                    s.displayArr(nums);
 
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
+                    System.out.println("");
                     System.out.println("Total time taken: " + timeTaken + " ms");
                     break;
 
                 case 5:
                     // get the current system time in milliseconds
                     startTime = System.currentTimeMillis();
-                    System.out.println("You selected option " + sortOption + " (Quick sort)");
+
+                    // display array before quick sort
+                    System.out.println("");
+                    System.out.println("Array before quick sort :");
+                    s.displayArr(nums);
 
                     // sort array using the quick sort
-                    s.quickSort(nums, sortedNums);
+                    s.quickSort(nums);
+
+                    // display array after quick sort
+                    System.out.println("");
+                    System.out.println("Array after quick sort :");
+                    s.displayArr(nums);
 
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
+                    System.out.println("");
                     System.out.println("Total time taken: " + timeTaken + " ms");
                     break;
 
                 case 99:
                     // end program
+                    System.out.println("");
                     System.out.println("Program ended");
                     break;
 
@@ -167,27 +211,48 @@ public class Sort {
     }// end main
 
     // sort array using the selection sort
-    private void selectionSort(int[] nums, int[] sortedNums) {
+    private void selectionSort(int[] nums) {
+        // declare variables
+        int min = 0;
+        int temp = 0;
+
+        // outer loop makes the swap and iterates through the whole array
+        for(int i = 0; i < nums.length - 1; i++) {
+            //set current element to minimum
+            min = i;
+
+            // loop to find the smallest number
+            for(int j = i+1; j < nums.length; j++) {
+                if(nums[j] < nums[min]) {
+                    min = j;
+                }// end if
+            }// end inner for
+
+            // make swap
+            temp = nums[min];
+            nums[min] = nums[i];
+            nums[i] = temp;
+        }// end outer for
 
     }// end selectionSort()
 
     // sort array using the bubble sort
-    private void bubbleSort(int[] nums, int[] sortedNums) {
+    private void bubbleSort(int[] nums) {
 
     }// end bubbleSort()
 
     // sort array using the insertion sort
-    private void insertionSort(int[] nums, int[] sortedNums) {
+    private void insertionSort(int[] nums) {
 
     }// end insertionSort()
 
     // sort array using the merge sort
-    private void mergeSort(int[] nums, int[] sortedNums) {
+    private void mergeSort(int[] nums) {
 
     }// end mergeSort()
 
     // sort array using the quick sort
-    private void quickSort(int[] nums, int[] sortedNums) {
+    private void quickSort(int[] nums) {
 
     }// end quickSort()
 
@@ -218,5 +283,12 @@ public class Sort {
             nums[i] = rand.nextInt(range);
         }// end for
     }// end generateNums()
+
+    // print array contents
+    private void displayArr(int[] nums) {
+        for (int num : nums) {
+            System.out.print(" " + num + " ");
+        }// end for
+    }
 }
 
