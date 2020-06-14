@@ -3,12 +3,15 @@
     Date: 22/05/2020
 */
 
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 import java.util.Random;
+import java.io.BufferedReader;
 
 public class Sort {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //declare variables and arrays
         int option = 0;
         int sortOption = 0;
@@ -29,9 +32,7 @@ public class Sort {
         while(option != 1 && option != 2 && option != 3) {
             //ask user to select option from menu
             System.out.println("");
-            System.out.println("Select an option from the menu: ");
-            System.out.println("1.Use a randomly generated set of numbers");
-            System.out.println("2.Load a set of numbers from a txt file");
+            s.displayStartMenu();
 
             option = input.nextInt();
 
@@ -41,7 +42,11 @@ public class Sort {
                 s.generateNums(nums);
 
             } else if (option == 2) {
-                System.out.println("You have selected option 2");
+                // populate nums array
+                s.enterNums(nums);
+
+            } else if (option == 3) {
+                System.out.println("You have selected option 3");
 
             } else {
                 System.out.println("ERROR: Invalid input. Select an option from the menu");
@@ -52,15 +57,7 @@ public class Sort {
         while(sortOption != 99) {
             // display menu
             System.out.println("");
-            System.out.println("Select a sorting algorithm to sort the data set from the menu below: ");
-            System.out.println("1. Selection sort");
-            System.out.println("2. Bubble sort");
-            System.out.println("3. Insertion sort");
-            System.out.println("4. Merge sort");
-            System.out.println("5. Quick sort");
-            System.out.println("6. Generate another set of random numbers");
-            System.out.println("7. Shuffle current data set");
-            System.out.println("99. End program");
+            s.displaySortMenu();
 
             // take user input
             sortOption = input.nextInt();
@@ -193,6 +190,11 @@ public class Sort {
                     break;
 
                 case 7:
+                    // enter nums
+                    s.enterNums(nums);
+                    break;
+
+                case 8:
                     // shuffle array
                     s.shuffleArr(nums);
                     break;
@@ -257,20 +259,42 @@ public class Sort {
 
     }// end quickSort()
 
+    // print start menu
+    private void displayStartMenu() {
+        System.out.println("Select an option from the menu: ");
+        System.out.println("1.Use a randomly generated set of numbers");
+        System.out.println("2.Manually enter a set of numbers");
+        System.out.println("3.Load a set of numbers from a txt file");
+    }// end displayStartMenu()
+
+    // display sorting menu
+    private void displaySortMenu() {
+        System.out.println("Select a sorting algorithm to sort the data set from the menu below: ");
+        System.out.println("1. Selection sort");
+        System.out.println("2. Bubble sort");
+        System.out.println("3. Insertion sort");
+        System.out.println("4. Merge sort");
+        System.out.println("5. Quick sort");
+        System.out.println("6. Generate another set of random numbers");
+        System.out.println("7. Manually enter another set of numbers");
+        System.out.println("8. Shuffle current data set");
+        System.out.println("99. End program");
+    }// end displaySortMenu()
+
     // allow user to insert numbers into array
-    private void enterNums(int[] nums) {
+    private void enterNums(int[] nums) throws IOException {
         System.out.println("");
         System.out.println("Enter the numbers all at once or one at a time. ");
 
-        Scanner inputNum = new Scanner(System.in);
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader inputNum = new BufferedReader(isr);
 
         // populate array
         for(int i = 0; i < nums.length; i++) {
             System.out.println("Number " + (i+1) + ": ");
-            nums[i] = inputNum.nextInt();
+            nums[i] = Integer.parseInt(inputNum.readLine());
         }// end for
 
-        inputNum.close();
     }// end enterNums()
 
     // generate random numbers and populate array with the numbers
@@ -310,5 +334,5 @@ public class Sort {
             nums[i] = temp;
         }// end outer for
     }// end shuffleArr()
-}
+}// end Sort class
 
