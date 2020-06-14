@@ -5,10 +5,8 @@
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
-import java.util.Scanner;
-import java.util.Random;
 import java.io.BufferedReader;
+import java.util.*;
 
 public class Sort {
     public static void main(String[] args) throws IOException {
@@ -17,16 +15,15 @@ public class Sort {
         int sortOption = 0;
         int sizeArr;
         long startTime, endTime, timeTaken;
-        int[] nums;
+        ArrayList<Integer> nums = new ArrayList<>();
 
         // create objects
         Scanner input = new Scanner(System.in);
         Sort s = new Sort();
 
-        // declare array size
-        System.out.println("How many numbers would you like to include in the data set (Max = 100): ");
+        // create array list
+        System.out.println("How many numbers would you like to include in the data set: ");
         sizeArr = input.nextInt();
-        nums = new int[sizeArr];
 
         //display menu until the user selects a valid opinion
         while(option != 1 && option != 2 && option != 3) {
@@ -39,11 +36,11 @@ public class Sort {
             //react to users menu selection
             if (option == 1) {
                 // populate nums array
-                s.generateNums(nums);
+                s.generateNums(nums, sizeArr);
 
             } else if (option == 2) {
                 // populate nums array
-                s.enterNums(nums);
+                s.enterNums(nums, sizeArr);
 
             } else if (option == 3) {
                 System.out.println("You have selected option 3");
@@ -186,12 +183,12 @@ public class Sort {
 
                 case 6:
                     // generate a random set of numbers
-                    s.generateNums(nums);
+                    s.generateNums(nums, sizeArr);
                     break;
 
                 case 7:
                     // enter nums
-                    s.enterNums(nums);
+                    s.enterNums(nums, sizeArr);
                     break;
 
                 case 8:
@@ -214,48 +211,45 @@ public class Sort {
     }// end main
 
     // sort array using the selection sort
-    private void selectionSort(int[] nums) {
+    private void selectionSort(ArrayList<Integer> nums) {
         // declare variables
         int min = 0;
-        int temp = 0;
 
         // outer loop makes the swap and iterates through the whole array
-        for(int i = 0; i < nums.length - 1; i++) {
+        for(int i = 0; i < nums.size() - 1; i++) {
             //set current element to minimum
             min = i;
 
             // loop to find the smallest number
-            for(int j = i+1; j < nums.length; j++) {
-                if(nums[j] < nums[min]) {
+            for(int j = i+1; j < nums.size(); j++) {
+                if(nums.get(j) < nums.get(min)) {
                     min = j;
                 }// end if
             }// end inner for
 
             // make swap
-            temp = nums[min];
-            nums[min] = nums[i];
-            nums[i] = temp;
+            Collections.swap(nums,i,min);
         }// end outer for
 
     }// end selectionSort()
 
     // sort array using the bubble sort
-    private void bubbleSort(int[] nums) {
+    private void bubbleSort(ArrayList<Integer> nums) {
 
     }// end bubbleSort()
 
     // sort array using the insertion sort
-    private void insertionSort(int[] nums) {
+    private void insertionSort(ArrayList<Integer> nums) {
 
     }// end insertionSort()
 
     // sort array using the merge sort
-    private void mergeSort(int[] nums) {
+    private void mergeSort(ArrayList<Integer> nums) {
 
     }// end mergeSort()
 
     // sort array using the quick sort
-    private void quickSort(int[] nums) {
+    private void quickSort(ArrayList<Integer> nums) {
 
     }// end quickSort()
 
@@ -282,7 +276,7 @@ public class Sort {
     }// end displaySortMenu()
 
     // allow user to insert numbers into array
-    private void enterNums(int[] nums) throws IOException {
+    private void enterNums(ArrayList<Integer> nums, int sizeArr) throws IOException {
         System.out.println("");
         System.out.println("Enter the numbers all at once or one at a time. ");
 
@@ -290,48 +284,46 @@ public class Sort {
         BufferedReader inputNum = new BufferedReader(isr);
 
         // populate array
-        for(int i = 0; i < nums.length; i++) {
+        for(int i = 0; i < sizeArr; i++) {
             System.out.println("Number " + (i+1) + ": ");
-            nums[i] = Integer.parseInt(inputNum.readLine());
+            nums.add(Integer.parseInt(inputNum.readLine()));
         }// end for
 
     }// end enterNums()
 
     // generate random numbers and populate array with the numbers
-    private void generateNums(int[] nums) {
+    private void generateNums(ArrayList<Integer> nums, int sizeArr) {
         System.out.println("");
         Random rand = new Random();
         int range = 100;
 
         // populate array
-        for(int i = 0; i < nums.length; i++) {
-            nums[i] = rand.nextInt(range);
+        for(int i = 0; i < sizeArr; i++) {
+            nums.add(rand.nextInt(range));
         }// end for
     }// end generateNums()
 
     // print array contents
-    private void displayArr(int[] nums) {
+    private void displayArr(ArrayList<Integer> nums) {
         for (int num : nums) {
             System.out.print(" " + num + " ");
         }// end for
     }// end displayArr()
 
     // randomly shuffle the contents of the array
-    private void shuffleArr(int[] nums) {
+    private void shuffleArr(ArrayList<Integer> nums) {
         // declare variables
         Random rand = new Random();
-        int maxIndex = nums.length - 1;
+        int maxIndex = nums.size() - 1;
         int randIndex, temp;
 
         // swap random indexes
-        for(int i = 0; i < nums.length; i++) {
+        for(int i = 0; i < nums.size(); i++) {
             // store a random index
             randIndex = rand.nextInt(maxIndex);
 
             // make swap
-            temp = nums[randIndex];
-            nums[randIndex] = nums[i];
-            nums[i] = temp;
+            Collections.swap(nums,i,randIndex);
         }// end outer for
     }// end shuffleArr()
 }// end Sort class
