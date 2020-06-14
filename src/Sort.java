@@ -196,6 +196,11 @@ public class Sort {
                     s.shuffleArr(nums);
                     break;
 
+                case 9:
+                    // clear array
+                    s.clearArr(nums);
+                    break;
+
                 case 99:
                     // end program
                     System.out.println("");
@@ -217,7 +222,7 @@ public class Sort {
 
         // outer loop makes the swap and iterates through the whole array
         for(int i = 0; i < nums.size() - 1; i++) {
-            //set current element to minimum
+            // set current element to minimum
             min = i;
 
             // loop to find the smallest number
@@ -235,12 +240,39 @@ public class Sort {
 
     // sort array using the bubble sort
     private void bubbleSort(ArrayList<Integer> nums) {
+        // loop through list and make swaps
+        for(int i = 1; i < nums.size(); i++) {
 
+           // inner for loop does the comparisions and swaps
+           for(int j = 0; j < nums.size() - 1; j++) {
+               if(nums.get(j) > nums.get(j + 1)) {
+                   Collections.swap(nums, j, j+1);
+               }// end if
+           }// end inner for
+        }// end outer for
     }// end bubbleSort()
 
     // sort array using the insertion sort
     private void insertionSort(ArrayList<Integer> nums) {
+        // declare variable
+        int current, j = 0;
 
+        // outer loop sets values for the current and j variable and it also makes the swap at the end
+        for(int i = 1; i < nums.size(); i++) {
+            //set values for current and j
+            current = nums.get(i);
+            j = i;
+
+            // inner loop compares and updates the arraylist and j variable
+            while(nums.get(j) < nums.get(j-1) && j > 0) {
+                // update list and j
+                nums.set(nums.get(j), nums.get(j-1));
+                j = j-1;
+            }// end inner while loop
+
+            // make swap
+            Collections.swap(nums, j, current);
+        }// end outer for
     }// end insertionSort()
 
     // sort array using the merge sort
@@ -272,6 +304,7 @@ public class Sort {
         System.out.println("6. Generate another set of random numbers");
         System.out.println("7. Manually enter another set of numbers");
         System.out.println("8. Shuffle current data set");
+        System.out.println("9. Clear contents of data set");
         System.out.println("99. End program");
     }// end displaySortMenu()
 
@@ -289,19 +322,27 @@ public class Sort {
             nums.add(Integer.parseInt(inputNum.readLine()));
         }// end for
 
+        System.out.println("You have added " + sizeArr + " numbers into the data set");
     }// end enterNums()
 
     // generate random numbers and populate array with the numbers
     private void generateNums(ArrayList<Integer> nums, int sizeArr) {
         System.out.println("");
         Random rand = new Random();
-        int range = 100;
+        int range = 200;
 
         // populate array
         for(int i = 0; i < sizeArr; i++) {
             nums.add(rand.nextInt(range));
         }// end for
+
+        System.out.println(sizeArr + " random numbers have been added to the data set");
     }// end generateNums()
+
+    // clear the contents of array
+    private void clearArr(ArrayList<Integer> nums) {
+        nums.clear();
+    }// end clearArr()
 
     // print array contents
     private void displayArr(ArrayList<Integer> nums) {
