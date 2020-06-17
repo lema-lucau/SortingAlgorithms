@@ -81,8 +81,7 @@ public class Sort {
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
-                    System.out.println("");
-                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    s.printTime(timeTaken);
                     break;
 
                 case 2:
@@ -105,8 +104,7 @@ public class Sort {
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
-                    System.out.println("");
-                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    s.printTime(timeTaken);
                     break;
 
                 case 3:
@@ -129,8 +127,7 @@ public class Sort {
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
-                    System.out.println("");
-                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    s.printTime(timeTaken);
                     break;
 
                 case 4:
@@ -153,8 +150,7 @@ public class Sort {
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
-                    System.out.println("");
-                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    s.printTime(timeTaken);
                     break;
 
                 case 5:
@@ -177,8 +173,7 @@ public class Sort {
                     // get time after method is finished and display the time taken
                     endTime = System.currentTimeMillis();
                     timeTaken = endTime - startTime;
-                    System.out.println("");
-                    System.out.println("Total time taken: " + timeTaken + " ms");
+                    s.printTime(timeTaken);
                     break;
 
                 case 6:
@@ -264,14 +259,14 @@ public class Sort {
             j = i;
 
             // inner loop compares and updates the arraylist and j variable
-            while(nums.get(j) < nums.get(j-1) && j > 0) {
+            while(j > 0 && current < nums.get(j-1)) {
                 // update list and j
-                nums.set(nums.get(j), nums.get(j-1));
+                nums.set(j, nums.get(j-1));
                 j = j-1;
             }// end inner while loop
 
-            // make swap
-            Collections.swap(nums, j, current);
+            // insert number in correct position
+            nums.set(j, current);
         }// end outer for
     }// end insertionSort()
 
@@ -301,12 +296,17 @@ public class Sort {
         System.out.println("3. Insertion sort");
         System.out.println("4. Merge sort");
         System.out.println("5. Quick sort");
-        System.out.println("6. Generate another set of random numbers");
-        System.out.println("7. Manually enter another set of numbers");
+        System.out.println("6. Add another set of random numbers to data set");
+        System.out.println("7. Manually add another set of numbers to data set");
         System.out.println("8. Shuffle current data set");
         System.out.println("9. Clear contents of data set");
         System.out.println("99. End program");
     }// end displaySortMenu()
+
+    private void printTime(long timeTaken) {
+        System.out.println("");
+        System.out.println("Total time taken: " + timeTaken + " milliseconds");
+    }// end printTime()
 
     // allow user to insert numbers into array
     private void enterNums(ArrayList<Integer> nums, int sizeArr) throws IOException {
