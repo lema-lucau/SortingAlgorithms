@@ -140,7 +140,7 @@ public class Sort {
                     s.displayArr(nums);
 
                     // sort array using the merge sort
-                    s.sort(nums,0, nums.size()-1);
+                    s.mergeSort(nums,0, nums.size()-1);
 
                     // display array after merge sort
                     System.out.println("");
@@ -163,7 +163,7 @@ public class Sort {
                     s.displayArr(nums);
 
                     // sort array using the quick sort
-                    s.quickSort(nums);
+                    s.quickSort(nums, 0, nums.size()-1);
 
                     // display array after quick sort
                     System.out.println("");
@@ -271,7 +271,24 @@ public class Sort {
     }// end insertionSort()
 
     // sort array using the merge sort
-    private void mergeSort(ArrayList<Integer> nums, int low, int mid, int high) {
+    private void mergeSort(ArrayList<Integer> nums, int low, int high) {
+        if(low < high) {
+            // find middle
+            int mid = (low + high) / 2;
+
+            // sort first subarray
+            mergeSort(nums, low, mid);
+
+            // sort second subarray
+            mergeSort(nums, mid+1, high);
+
+            // merge the sorted arrays into one
+            merge(nums, low, mid, high);
+        }// end if
+    }// end mergeSort()
+
+    // part of the mergeSort algorithm
+    private void merge(ArrayList<Integer> nums, int low, int mid, int high) {
 
         // find size of the subarrays
         int size1 = mid - low + 1;
@@ -322,29 +339,40 @@ public class Sort {
             j++;
             k++;
         }// end while
-
-    }// end mergeSort()
-
-    private void sort(ArrayList<Integer> nums, int low, int high) {
-        if(low < high) {
-            // find middle
-            int mid = (low + high) / 2;
-
-            // sort first subarray
-            sort(nums, low, mid);
-
-            // sort second subarray
-            sort(nums, mid+1, high);
-
-            // merge the sorted arrays into one
-            mergeSort(nums, low, mid, high);
-        }// end if
-    }// end sort()
+    }// end merge()
 
     // sort array using the quick sort
-    private void quickSort(ArrayList<Integer> nums) {
+    private void quickSort(ArrayList<Integer> nums, int low, int high) {
+        if(low < high) {
+            // set the partition index
+            int par = partition(nums, low, high);
 
+            // recursively sort elements on either side of the partition
+            quickSort(nums, low, par-1);
+            quickSort(nums, par+1, high);
+        }// end if
     }// end quickSort()
+
+    // part of the quickSort algorithm
+    private int partition(ArrayList<Integer> nums, int low, int high) {
+        int pivot = nums.get(high);
+        int i = low-1;
+
+        for(int j = low; j < high; j++) {
+            // compare current element to pivot
+            if(nums.get(j) < pivot) {
+                i++;
+
+                // swap nums[i] and nums[j]
+                Collections.swap(nums,i,j);
+            }// end if
+        }// end for
+
+        // make swap
+        Collections.swap(nums,i+1,high);
+
+        return i+1;
+    }// end partition
 
     // print start menu
     private void displayStartMenu() {
