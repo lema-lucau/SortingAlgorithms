@@ -140,7 +140,7 @@ public class Sort {
                     s.displayArr(nums);
 
                     // sort array using the merge sort
-                    s.mergeSort(nums);
+                    s.sort(nums,0, nums.size()-1);
 
                     // display array after merge sort
                     System.out.println("");
@@ -271,9 +271,75 @@ public class Sort {
     }// end insertionSort()
 
     // sort array using the merge sort
-    private void mergeSort(ArrayList<Integer> nums) {
+    private void mergeSort(ArrayList<Integer> nums, int low, int mid, int high) {
+
+        // find size of the subarrays
+        int size1 = mid - low + 1;
+        int size2 = high - mid;
+
+        // create temp arrays
+        int left[] = new int[size1];
+        int right[] = new int[size2];
+
+        // store data in temp arrays
+        for(int i = 0; i < size1; i++) {
+            left[i] = nums.get(low + i);
+        }// end for
+
+        for(int i = 0 ; i < size2; i++) {
+            right[i] = nums.get((mid + 1) + i);
+        }// end for
+
+        // intialise indexes of left, right and merged subarray arrays
+        int i = 0;
+        int j = 0;
+        int k = low;
+
+        // merge the subarrays into one array
+        while(i < size1 && j < size2) {
+            if(left[i] <= right[j]) {
+                nums.set(k, left[i]);
+                i++;
+            }// end if
+            else {
+                nums.set(k, right[j]);
+                j++;
+            }// end else
+
+            k++;
+        }// end while
+
+        // copy remaining numbers of left[] if any
+        while(i < size1) {
+            nums.set(k, left[i]);
+            i++;
+            k++;
+        }// end while
+
+        // copy remaining numbers of right[] if any
+        while(j < size2) {
+            nums.set(k, right[j]);
+            j++;
+            k++;
+        }// end while
 
     }// end mergeSort()
+
+    private void sort(ArrayList<Integer> nums, int low, int high) {
+        if(low < high) {
+            // find middle
+            int mid = (low + high) / 2;
+
+            // sort first subarray
+            sort(nums, low, mid);
+
+            // sort second subarray
+            sort(nums, mid+1, high);
+
+            // merge the sorted arrays into one
+            mergeSort(nums, low, mid, high);
+        }// end if
+    }// end sort()
 
     // sort array using the quick sort
     private void quickSort(ArrayList<Integer> nums) {
