@@ -423,7 +423,7 @@ public class Sort {
     private void generateNums(ArrayList<Integer> nums, int sizeArr) {
         System.out.println("");
         Random rand = new Random();
-        int range = 200;
+        int range = 2000;
 
         // populate array
         for(int i = 0; i < sizeArr; i++) {
