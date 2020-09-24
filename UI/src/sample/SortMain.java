@@ -39,8 +39,12 @@ public class SortMain {
                 s.enterNums(nums, sizeArr);
 
             } else if (option == 3) {
-                System.out.println("You have selected option 3");
+                nums = s.readFile();
 
+                // if the file was not found make the loop display again
+                if(nums.isEmpty()) {
+                    option = 99;
+                }
             } else {
                 System.out.println("ERROR: Invalid input. Select an option from the menu");
             }//end if else

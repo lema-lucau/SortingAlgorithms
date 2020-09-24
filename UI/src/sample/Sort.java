@@ -8,6 +8,8 @@ package sample;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -264,5 +266,36 @@ public class Sort {
             Collections.swap(nums,i,randIndex);
         }// end outer for
     }// end shuffleArr()
+
+    // read numbers from a file and return an arraylist
+    public ArrayList<Integer> readFile() throws IOException {
+
+        ArrayList<Integer> temp = new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+
+        // get the file name
+        System.out.println("Enter the name of the text file: ");
+        String file = input.nextLine();
+
+
+        // create a reader for the file
+        try(Scanner reader = new Scanner(Paths.get(file))) {
+
+            // read the file and add the contents to the arraylist
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                String[] parts = line.split(" ");
+
+                // loop through all the numbers on that line
+                for (String s : parts) {
+                    temp.add(Integer.valueOf(s));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return temp;
+    }
 }// end sample.Sort class
 
