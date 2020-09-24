@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="140.0" layoutY="14.0" prefHeight="107.0" prefWidth="420.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0">
+         <center>
+            <Label prefHeight="110.0" prefWidth="420.0" text="Animated Sorting Algorithms by Lema Lucau" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Arial Nova" size="27.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane layoutX="324.0" layoutY="190.0" AnchorPane.leftAnchor="324.0" AnchorPane.rightAnchor="324.0">
+         <center>
+            <Button mnemonicParsing="false" text="Start" textAlignment="CENTER" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Button>
+         </center>
+      </BorderPane>
+      <BorderPane layoutX="328.0" layoutY="316.0" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="327.2">
+         <center>
+            <Button mnemonicParsing="false" text="Exit" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Button>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

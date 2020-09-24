@@ -10,9 +10,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Parent startScreenroot = FXMLLoader.load(getClass().getResource("Resources/startScreen.fxml"));
+        Parent loginformroot = FXMLLoader.load(getClass().getResource("Resources/Home.fxml"));
+        Scene loginform = new Scene(loginformroot);
+        Scene startScreen = new Scene(startScreenroot,850,600);
+
+        primaryStage.setTitle("Sorting Algorithms");
+        primaryStage.setScene(startScreen);
         primaryStage.show();
     }
 
