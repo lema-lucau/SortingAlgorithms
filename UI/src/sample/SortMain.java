@@ -8,57 +8,22 @@ public class SortMain {
     public static void main(String[] args) throws IOException {
         //declare variables and arrays
         int option = 0;
-        int sortOption = 0;
-        int sizeArr;
         ArrayList<Integer> nums = new ArrayList<>();
 
         // create objects
         Scanner input = new Scanner(System.in);
         Sort s = new Sort();
 
-        // create array list
-        System.out.println("How many numbers would you like to include in the data set: ");
-        sizeArr = input.nextInt();
-
-        //display menu until the user selects a valid opinion
-        while(option != 1 && option != 2 && option != 3) {
-            //ask user to select option from menu
-            System.out.println("");
-            s.displayStartMenu();
-
-            option = input.nextInt();
-
-            //react to users menu selection
-            if (option == 1) {
-                // populate nums array
-                s.generateNums(nums, sizeArr);
-
-            } else if (option == 2) {
-                // populate nums array
-                s.enterNums(nums, sizeArr);
-
-            } else if (option == 3) {
-                nums = s.readFile();
-
-                // if the file was not found make the loop display again
-                if(nums.isEmpty()) {
-                    option = 99;
-                }
-            } else {
-                System.out.println("ERROR: Invalid input. Select an option from the menu");
-            }//end if else
-        }// end while loop
-
         //allow user to select a sorting algorithm
-        while(sortOption != 99) {
+        while(option != 99) {
             // display menu
             System.out.println("");
-            s.displaySortMenu();
+            s.menu();
 
             // take user input
-            sortOption = input.nextInt();
+            option = Integer.valueOf(input.nextLine());
 
-            switch (sortOption) {
+            switch (option) {
                 // call correct sorting sorting method based on the users input
                 case 1:
                     // reset the counters
@@ -197,20 +162,25 @@ public class SortMain {
 
                 case 6:
                     // generate a random set of numbers
-                    s.generateNums(nums, sizeArr);
+                    s.generateNums(nums);
                     break;
 
                 case 7:
                     // enter nums
-                    s.enterNums(nums, sizeArr);
+                    s.enterNums(nums);
                     break;
 
                 case 8:
+                    // load numbers from a text file
+                    nums = s.readFile();
+                    break;
+
+                case 9:
                     // shuffle array
                     s.shuffleArr(nums);
                     break;
 
-                case 9:
+                case 10:
                     // clear array
                     s.clearArr(nums);
                     break;

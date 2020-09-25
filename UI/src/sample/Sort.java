@@ -18,6 +18,7 @@ public class Sort {
     private long comparisons;
     private long swaps;
     private long startTime, endTime, timeTaken;
+//    private ArrayList<Integer> nums;
 
     public Sort() {
         this.comparisons = 0;
@@ -25,6 +26,7 @@ public class Sort {
         this.startTime = 0;
         this.endTime = 0;
         this.timeTaken = 0;
+//        nums = new ArrayList<>();
     }
 
     // sort array using the selection sort
@@ -206,31 +208,31 @@ public class Sort {
         return i+1;
     }// end partition
 
-    // print start menu
-    public void displayStartMenu() {
-        System.out.println("Select an option from the menu: ");
-        System.out.println("1.Use a randomly generated set of numbers");
-        System.out.println("2.Manually enter a set of numbers");
-        System.out.println("3.Load a set of numbers from a txt file");
-    }// end displayStartMenu()
-
     // display sorting menu
-    public void displaySortMenu() {
-        System.out.println("Select a sorting algorithm to sort the data set from the menu below: ");
+    public void menu() {
+        System.out.println("Select an option from the menu: ");
         System.out.println("1. Selection sort");
         System.out.println("2. Bubble sort");
         System.out.println("3. Insertion sort");
         System.out.println("4. Merge sort");
         System.out.println("5. Quick sort");
-        System.out.println("6. Add another set of random numbers to data set");
-        System.out.println("7. Manually add another set of numbers to data set");
-        System.out.println("8. Shuffle current data set");
-        System.out.println("9. Clear contents of data set");
+        System.out.println("6. Add random numbers to data set");
+        System.out.println("7. Manually add numbers to data set");
+        System.out.println("8. Load numbers from a txt file");
+        System.out.println("9. Shuffle current data set");
+        System.out.println("10. Clear contents of data set");
         System.out.println("99. End program");
-    }// end displaySortMenu()
+    }// end menu()
 
     // allow user to insert numbers into array
-    public void enterNums(ArrayList<Integer> nums, int sizeArr) throws IOException {
+    public void enterNums(ArrayList<Integer> nums) throws IOException {
+        Scanner input = new Scanner(System.in);
+
+        // ask user for how many numbers to input and the highest number they want in the list
+        System.out.println("");
+        System.out.println("How many numbers would you like to add into the list: ");
+        int total = Integer.valueOf(input.nextLine());
+
         System.out.println("");
         System.out.println("Enter the numbers all at once or one at a time. ");
 
@@ -238,26 +240,33 @@ public class Sort {
         BufferedReader inputNum = new BufferedReader(isr);
 
         // populate array
-        for(int i = 0; i < sizeArr; i++) {
+        for(int i = 0; i < total; i++) {
             System.out.println("Number " + (i+1) + ": ");
             nums.add(Integer.parseInt(inputNum.readLine()));
         }// end for
 
-        System.out.println("You have added " + sizeArr + " numbers into the data set");
+        System.out.println("You have added " + total + " numbers into the data set");
     }// end enterNums()
 
     // generate random numbers and populate array with the numbers
-    public void generateNums(ArrayList<Integer> nums, int sizeArr) {
+    public void generateNums(ArrayList<Integer> nums) {
         System.out.println("");
         Random rand = new Random();
-        int range = 500;
+        Scanner input = new Scanner(System.in);
+
+        // ask user for how many numbers to input and the highest number they want in the list
+        System.out.println("How many numbers would you like to add into the list: ");
+        int total = Integer.valueOf(input.nextLine());
+
+        System.out.println("Highest possible number you want to generate: ");
+        int max = Integer.valueOf(input.nextLine());
 
         // populate array
-        for(int i = 0; i < sizeArr; i++) {
-            nums.add(rand.nextInt(range));
+        for(int i = 0; i < total; i++) {
+            nums.add(rand.nextInt(max));
         }// end for
 
-        System.out.println(sizeArr + " random numbers have been added to the data set");
+        System.out.println(total + " random numbers have been added to the data set");
     }// end generateNums()
 
     // clear the contents of array
@@ -352,6 +361,5 @@ public class Sort {
         this.endTime = 0;
         this.timeTaken = 0;
     }
-
 }// end sample.Sort class
 
