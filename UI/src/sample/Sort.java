@@ -15,9 +15,20 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Sort {
+    private long comparisons;
+    private long swaps;
+    private long startTime, endTime, timeTaken;
+
+    public Sort() {
+        this.comparisons = 0;
+        this.swaps = 0;
+        this.startTime = 0;
+        this.endTime = 0;
+        this.timeTaken = 0;
+    }
+
     // sort array using the selection sort
     public void selectionSort(ArrayList<Integer> nums) {
-        // declare variables
         int min = 0;
 
         // outer loop makes the swap and iterates through the whole array
@@ -30,23 +41,29 @@ public class Sort {
                 if(nums.get(j) < nums.get(min)) {
                     min = j;
                 }// end if
+
+                this.comparisons += 1;
             }// end inner for
 
             // make swap
             Collections.swap(nums,i,min);
+            this.swaps += 1;
         }// end outer for
-
     }// end selectionSort()
 
     // sort array using the bubble sort
     public void bubbleSort(ArrayList<Integer> nums) {
+
         // loop through list and make swaps
         for(int i = 1; i < nums.size(); i++) {
 
            // inner for loop does the comparisions and swaps
            for(int j = 0; j < nums.size() - 1; j++) {
+               this.comparisons += 1;
+
                if(nums.get(j) > nums.get(j + 1)) {
                    Collections.swap(nums, j, j+1);
+                   this.swaps += 1;
                }// end if
            }// end inner for
         }// end outer for
@@ -54,7 +71,6 @@ public class Sort {
 
     // sort array using the insertion sort
     public void insertionSort(ArrayList<Integer> nums) {
-        // declare variable
         int current, j = 0;
 
         // outer loop sets values for the current and j variable and it also makes the swap at the end
@@ -65,13 +81,17 @@ public class Sort {
 
             // inner loop compares and updates the arraylist and j variable
             while(j > 0 && current < nums.get(j-1)) {
+                this.comparisons += 1;
+
                 // update list and j
+                this.swaps += 1;
                 nums.set(j, nums.get(j-1));
                 j = j-1;
             }// end inner while loop
 
             // insert number in correct position
             nums.set(j, current);
+            this.swaps += 1;
         }// end outer for
     }// end insertionSort()
 
@@ -94,7 +114,6 @@ public class Sort {
 
     // part of the mergeSort algorithm
     private void merge(ArrayList<Integer> nums, int low, int mid, int high) {
-
         // find size of the subarrays
         int size1 = mid - low + 1;
         int size2 = high - mid;
@@ -120,10 +139,14 @@ public class Sort {
         // merge the subarrays into one array
         while(i < size1 && j < size2) {
             if(left[i] <= right[j]) {
+                this.comparisons += 1;
+                this.swaps += 1;
                 nums.set(k, left[i]);
                 i++;
             }// end if
             else {
+                this.comparisons += 1;
+                this.swaps += 1;
                 nums.set(k, right[j]);
                 j++;
             }// end else
@@ -133,6 +156,7 @@ public class Sort {
 
         // copy remaining numbers of left[] if any
         while(i < size1) {
+            this.swaps += 1;
             nums.set(k, left[i]);
             i++;
             k++;
@@ -140,6 +164,7 @@ public class Sort {
 
         // copy remaining numbers of right[] if any
         while(j < size2) {
+            this.swaps += 1;
             nums.set(k, right[j]);
             j++;
             k++;
@@ -165,11 +190,13 @@ public class Sort {
 
         for(int j = low; j < high; j++) {
             // compare current element to pivot
+            this.comparisons += 1;
             if(nums.get(j) < pivot) {
                 i++;
 
                 // swap nums[i] and nums[j]
                 Collections.swap(nums,i,j);
+                this.swaps += 1;
             }// end if
         }// end for
 
@@ -201,11 +228,6 @@ public class Sort {
         System.out.println("9. Clear contents of data set");
         System.out.println("99. End program");
     }// end displaySortMenu()
-
-    public void printTime(long timeTaken) {
-        System.out.println("");
-        System.out.println("Total time taken: " + timeTaken + " milliseconds");
-    }// end printTime()
 
     // allow user to insert numbers into array
     public void enterNums(ArrayList<Integer> nums, int sizeArr) throws IOException {
@@ -241,6 +263,7 @@ public class Sort {
     // clear the contents of array
     public void clearArr(ArrayList<Integer> nums) {
         nums.clear();
+        System.out.println("The list has been cleared");
     }// end clearArr()
 
     // print array contents
@@ -265,6 +288,9 @@ public class Sort {
             // make swap
             Collections.swap(nums,i,randIndex);
         }// end outer for
+
+        System.out.println();
+        System.out.println("The list has been shuffled");
     }// end shuffleArr()
 
     // read numbers from a file and return an arraylist
@@ -274,6 +300,7 @@ public class Sort {
         Scanner input = new Scanner(System.in);
 
         // get the file name
+        System.out.println();
         System.out.println("Enter the name of the text file: ");
         String file = input.nextLine();
 
@@ -297,5 +324,34 @@ public class Sort {
 
         return temp;
     }
+
+    // get the current system time
+    public void startTimer() {
+        // get the current system time in milliseconds
+        this.startTime = System.currentTimeMillis();
+    }
+
+    // get the system current time, subtract it from the starting time to get the difference
+    public void endTimer() {
+        // get the current system time in milliseconds
+        this.endTime = System.currentTimeMillis();
+        this.timeTaken = this.endTime - this.startTime;
+    }
+
+    public void printStats() {
+        System.out.println();
+        System.out.println("Comparisons: " + this.comparisons);
+        System.out.println("Swaps: " + this.swaps);
+        System.out.println("Total time taken: " + this.timeTaken + " milliseconds");
+    }
+
+    public void resetCounters() {
+        this.comparisons = 0;
+        this.swaps = 0;
+        this.startTime = 0;
+        this.endTime = 0;
+        this.timeTaken = 0;
+    }
+
 }// end sample.Sort class
 
