@@ -18,7 +18,7 @@ public class Sort {
     private long comparisons;
     private long swaps;
     private long startTime, endTime, timeTaken;
-//    private ArrayList<Integer> nums;
+    private ArrayList<Integer> nums;
 
     public Sort() {
         this.comparisons = 0;
@@ -26,12 +26,12 @@ public class Sort {
         this.startTime = 0;
         this.endTime = 0;
         this.timeTaken = 0;
-//        nums = new ArrayList<>();
+        nums = new ArrayList<>();
     }
 
     // sort array using the selection sort
-    public void selectionSort(ArrayList<Integer> nums) {
-        int min = 0;
+    public void selectionSort() {
+        int min;
 
         // outer loop makes the swap and iterates through the whole array
         for(int i = 0; i < nums.size() - 1; i++) {
@@ -54,7 +54,7 @@ public class Sort {
     }// end selectionSort()
 
     // sort array using the bubble sort
-    public void bubbleSort(ArrayList<Integer> nums) {
+    public void bubbleSort() {
 
         // loop through list and make swaps
         for(int i = 1; i < nums.size(); i++) {
@@ -72,8 +72,8 @@ public class Sort {
     }// end bubbleSort()
 
     // sort array using the insertion sort
-    public void insertionSort(ArrayList<Integer> nums) {
-        int current, j = 0;
+    public void insertionSort() {
+        int current, j;
 
         // outer loop sets values for the current and j variable and it also makes the swap at the end
         for(int i = 1; i < nums.size(); i++) {
@@ -98,31 +98,35 @@ public class Sort {
     }// end insertionSort()
 
     // sort array using the merge sort
-    public void mergeSort(ArrayList<Integer> nums, int low, int high) {
+    public void mergeSort() {
+        mergeSortAlg(0, nums.size()-1);
+    }
+
+    private void mergeSortAlg(int low, int high) {
         if(low < high) {
             // find middle
             int mid = (low + high) / 2;
 
             // sort first subarray
-            mergeSort(nums, low, mid);
+            mergeSortAlg(low, mid);
 
             // sort second subarray
-            mergeSort(nums, mid+1, high);
+            mergeSortAlg(mid+1, high);
 
             // merge the sorted arrays into one
-            merge(nums, low, mid, high);
+            merge(low, mid, high);
         }// end if
     }// end mergeSort()
 
     // part of the mergeSort algorithm
-    private void merge(ArrayList<Integer> nums, int low, int mid, int high) {
+    private void merge(int low, int mid, int high) {
         // find size of the subarrays
         int size1 = mid - low + 1;
         int size2 = high - mid;
 
         // create temp arrays
-        int left[] = new int[size1];
-        int right[] = new int[size2];
+        int[] left = new int[size1];
+        int[] right = new int[size2];
 
         // store data in temp arrays
         for(int i = 0; i < size1; i++) {
@@ -174,19 +178,23 @@ public class Sort {
     }// end merge()
 
     // sort array using the quick sort
-    public void quickSort(ArrayList<Integer> nums, int low, int high) {
+    public void quickSort() {
+        quickSortAlg(0, nums.size()-1);
+    }
+
+    private void quickSortAlg(int low, int high) {
         if(low < high) {
             // set the partition index
-            int par = partition(nums, low, high);
+            int par = partition(low, high);
 
             // recursively sort elements on either side of the partition
-            quickSort(nums, low, par-1);
-            quickSort(nums, par+1, high);
+            quickSortAlg(low, par-1);
+            quickSortAlg(par+1, high);
         }// end if
     }// end quickSort()
 
     // part of the quickSort algorithm
-    private int partition(ArrayList<Integer> nums, int low, int high) {
+    private int partition(int low, int high) {
         int pivot = nums.get(high);
         int i = low-1;
 
@@ -221,19 +229,20 @@ public class Sort {
         System.out.println("8. Load numbers from a txt file");
         System.out.println("9. Shuffle current data set");
         System.out.println("10. Clear contents of data set");
+        System.out.println("11. Display contents of data set");
         System.out.println("99. End program");
     }// end menu()
 
     // allow user to insert numbers into array
-    public void enterNums(ArrayList<Integer> nums) throws IOException {
+    public void enterNums() throws IOException {
         Scanner input = new Scanner(System.in);
 
         // ask user for how many numbers to input and the highest number they want in the list
-        System.out.println("");
+        System.out.println();
         System.out.println("How many numbers would you like to add into the list: ");
-        int total = Integer.valueOf(input.nextLine());
+        int total = input.nextInt();
 
-        System.out.println("");
+        System.out.println();
         System.out.println("Enter the numbers all at once or one at a time. ");
 
         InputStreamReader isr = new InputStreamReader(System.in);
@@ -249,17 +258,17 @@ public class Sort {
     }// end enterNums()
 
     // generate random numbers and populate array with the numbers
-    public void generateNums(ArrayList<Integer> nums) {
-        System.out.println("");
+    public void generateNums() {
+        System.out.println();
         Random rand = new Random();
         Scanner input = new Scanner(System.in);
 
         // ask user for how many numbers to input and the highest number they want in the list
         System.out.println("How many numbers would you like to add into the list: ");
-        int total = Integer.valueOf(input.nextLine());
+        int total = input.nextInt();
 
         System.out.println("Highest possible number you want to generate: ");
-        int max = Integer.valueOf(input.nextLine());
+        int max = input.nextInt();
 
         // populate array
         for(int i = 0; i < total; i++) {
@@ -270,24 +279,24 @@ public class Sort {
     }// end generateNums()
 
     // clear the contents of array
-    public void clearArr(ArrayList<Integer> nums) {
+    public void clearArr() {
         nums.clear();
         System.out.println("The list has been cleared");
     }// end clearArr()
 
     // print array contents
-    public void displayArr(ArrayList<Integer> nums) {
+    public void displayArr() {
         for (int num : nums) {
             System.out.print(" " + num + " ");
         }// end for
     }// end displayArr()
 
     // randomly shuffle the contents of the array
-    public void shuffleArr(ArrayList<Integer> nums) {
+    public void shuffleArr() {
         // declare variables
         Random rand = new Random();
         int maxIndex = nums.size() - 1;
-        int randIndex, temp;
+        int randIndex;
 
         // swap random indexes
         for(int i = 0; i < nums.size(); i++) {
@@ -303,9 +312,7 @@ public class Sort {
     }// end shuffleArr()
 
     // read numbers from a file and return an arraylist
-    public ArrayList<Integer> readFile() throws IOException {
-
-        ArrayList<Integer> temp = new ArrayList<>();
+    public void readFile() {
         Scanner input = new Scanner(System.in);
 
         // get the file name
@@ -324,14 +331,12 @@ public class Sort {
 
                 // loop through all the numbers on that line
                 for (String s : parts) {
-                    temp.add(Integer.valueOf(s));
+                    nums.add(Integer.valueOf(s));
                 }
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-
-        return temp;
     }
 
     // get the current system time
@@ -349,6 +354,7 @@ public class Sort {
 
     public void printStats() {
         System.out.println();
+        System.out.println("Size of list: " + nums.size());
         System.out.println("Comparisons: " + this.comparisons);
         System.out.println("Swaps: " + this.swaps);
         System.out.println("Total time taken: " + this.timeTaken + " milliseconds");
@@ -360,6 +366,10 @@ public class Sort {
         this.startTime = 0;
         this.endTime = 0;
         this.timeTaken = 0;
+    }
+
+    public int getSize() {
+        return nums.size();
     }
 }// end sample.Sort class
 
